@@ -1,10 +1,13 @@
 import { Contact } from "../Contact/Contact";
 import css from "../ContactList/ContactList.module.css";
+import { getvisibleContacts } from "../../redux/selectors";
+import { useSelector } from "react-redux";
 
-export const ContactList = ({ contacts, deleteContact }) => {
+export const ContactList = ({ deleteContact }) => {
+  const visibleContacts = useSelector(getvisibleContacts);
   return (
     <ul className={css.contactsList}>
-      {contacts.map(({ name, id, number }) => (
+      {visibleContacts.map(({ name, id, number }) => (
         <li className={css.contactsItem} key={id}>
           <Contact
             name={name}

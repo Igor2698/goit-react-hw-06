@@ -1,6 +1,8 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import css from "../ContactForm/ContactForm.module.css";
+import { addContact, deleteContact } from "../../redux/contactsSlice";
+import { useDispatch } from "react-redux";
 
 const NewContactSchema = Yup.object().shape({
   name: Yup.string()
@@ -16,9 +18,11 @@ const NewContactSchema = Yup.object().shape({
     .max(13, "Max is 13 symbols!"),
 });
 
-export const ContactForm = ({ addNewContact }) => {
+export const ContactForm = () => {
+  const dispatch = useDispatch();
+
   const handleSubmit = (values, actions) => {
-    addNewContact(values);
+    dispatch(addContact(values));
     actions.resetForm();
   };
 
